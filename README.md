@@ -1,5 +1,5 @@
 # CalcScape
-Tools for OSRS/RS3 using JS/jQuery with a Bootstrap'd front end. Database managed via mySQL. 
+Tools for OSRS/RS3 using JS/jQuery with a Bootstrap Framework. Database managed via mySQL. 
 
 Currently working on accuracy/hitchance for RS3. 
 
