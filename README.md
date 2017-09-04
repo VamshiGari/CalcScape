@@ -7,6 +7,6 @@ Currently working on accuracy/hitchance for RS3.
 
 Boss data/links are stored in mySQL via phpMyAdmin.
 
-![img](https://imgur.com/a/EOOCY)
+![img](https://i.imgur.com/bW7dTN5.png)
 
 Copyright 2017, Vamshi K. Garikapati
