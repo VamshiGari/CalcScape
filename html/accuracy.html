@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Accuracy Calculator</title>
+  <meta charset="utf-8">
+  <script src = "../js/rs3navigation.js">
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">CalcScape</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#" id = "rs3page" onclick = "redirectTo(this.id)">Home</a></li>
+          <li><a href="#" id = "xp" onclick='redirectTo(this.id)'>Xp Calculator</a></li>
+          <li><a href="#" id = "accuracy" onclick='redirectTo(this.id)'>Accuracy Calculator</a></li>
+          <li><a href="#" id = "luckscape" onclick='redirectTo(this.id)' >Luckscape</a></li>
+        </ul>
+      </div>
+    </nav>
+    <table class = "table table-bordered">
+      <tbody>
+        <tr>
+          <td>Attack/Range/Magic Level</td>
+          <td> <input type="text" id="stat" value = "1" onload="changeL(this.id, 'acc0');calcAcc();" onkeyup="changeL(this.id, 'acc0');calcAcc();">
+            <td id = "acc0"></td>
+          </tr>
+          <tr>
+            <td>Weapon Tier</td>
+            <td> <input type="text" id="tier" value = "1" onload = "changeL(this.id, 'acc0');calcAcc();" onkeyup="changeL(this.id, 'acc1');calcAcc();">
+              <td id = "acc1"></td>
+            </tr>
+            <tr>
+              <td>Attack Style</td>
+              <td>
+                <select class="form-control" style = "width: 164px">
+                  <option value="none">None</option>
+                  <option value="stab">Stab</option>
+                  <option value="slash">Slash</option>
+                  <option value="crush">Crush</option>
+                  <option value="arrow">Arrow</option>
+                  <option value="bolt">Bolt</option>
+                  <option value="thrown">Thrown</option>
+                  <option value="air">Air</option>
+                  <option value="fire">Fire</option>
+                  <option value="water">Water</option>
+                  <option value="earth">Earth</option>
+                </select>
+              </td>
+              <td id = "accnone"></td>
+            </tr>
+            <tr>
+              <td>Prayer</td>
+              <td>
+                <select class="form-control" id = "prayer" style = "width: 164px" value = "1" onmousedown="this.value='';" onchange="changeP(this.value, 'acc2');calcAcc();">
+                  <option value='none'>None</option>
+                  <option id = "t1" value='1.02'>T1 Single Boosting Prayer</option>
+                  <option id = "t2" value='1.04'>T2 Single Boosting Prayer</option>
+                  <option id = "t3" value='1.06'>T3 Single Boosting Prayer</option>
+                  <option id = "leech" value='1.05'>Leech Curses(Maxed Out)</option>-->
+                  <option id = "t70" value='1.08'>Piety/Rigour/Augury</option>
+                  <option id = "curse" value='1.10'>Turmoil/Anguish/Torment</option>
+                  <option id = "praesul" value='1.12'>Malevolence/Desolation/Affliction</option>
+                </select>
+              </td>
+              <td id = "acc2"></td>
+            </tr>
+            <tr>
+              <td>Potion</td>
+              <td>
+                <select class="form-control" id = "potion" style = "width: 164px" value = "1" onmousedown="this.value='';" onchange="changeP(this.value, 'acc3');calcAcc();">
+                  <option value="none">None</option>
+                  <option value="regular">Regular</option>
+                  <option value="super">Super</option>
+                  <option value="grand">Grand</option>
+                  <option value="extremes">Extremes/Overload</option>
+                  <option value="supremes">Supremes/Overload(Supreme)</option>
+                </select>
+              </td>
+              <td id = "acc3"></td>
+
+            </tr>
+            <tr>
+              <td>Base Accuracy:</td>
+              <td id = "accfinal"> 1 </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Aura</td>
+              <td>
+                <select class="form-control" id = "aura" style = "width: 164px" value = "1" onmousedown="this.value='';" onchange="changeP(this.value, 'acc4');onClickHandler()">
+                  <option value="none">None</option>
+                  <option value="normal">Normal</option>
+                  <option value="greater">Greater</option>
+                  <option value="master">Master</option>
+                  <option value="supreme">Supreme or Berserker/Maniacal/Reckless</option>
+                </select>
+              </td>
+              <td id = "acc4"></td>
+            </tr>
+            <tr>
+              <td>Other Accuracy Modifiers</td>
+              <td>
+          <script type="text/javascript">
+          $(document).ready( function a()
+          {
+            changeL("stat", 'acc0')
+            changeL("tier", 'acc1')
+            calcAcc();
+            $("#med").change(function() {
+              if($(this).prop('checked') == true) {
+                $("#zeal").attr('disabled',true);
+              }
+              if($(this).prop('checked') == false && ($("#zeal").prop('checked') == false)){
+                $("#zeal").attr('disabled',false);
+              }
+            });
+
+            $("#zeal").change(function() {
+              if($(this).prop('checked') == true) {
+                var final2 = document.getElementById("accfinal2");
+                changeP(($('#prayer option:selected').val()),'acc2');
+                calcAcc();
+                onClickHandler();
+                $('#curse').prop('disabled', true);
+                $('#praesul').prop('disabled', true);
+                $('#t70').prop('disabled', true);
+                $("#med").attr('disabled',true);
+
+              }
+              if($(this).prop('checked') == false){
+                $("#med").attr('disabled',false);
+                $('#curse').prop('disabled', false);
+                $('#praesul').prop('disabled', false);
+                $('#t70').prop('disabled', false);
+                changeP($('#prayer option:selected').val(),'acc2');
+                calcAcc();
+                onClickHandler();
+              }
+            });
+
+            $("#inf").change(function() {
+              if($(this).prop('checked') == true) {
+                $("#sup").attr('disabled',true);
+              }
+              if($(this).prop('checked') == false && ($("#sup").prop('checked') == false)){
+                $("#sup").attr('disabled',false);
+              }
+            });
+            $("#sup").change(function() {
+              if($(this).prop('checked') == true) {
+                $("#inf").attr('disabled',true);
+              }
+              if($(this).prop('checked') == false && ($("#inf").prop('checked') == false)){
+                $("#inf").attr('disabled',false);
+              }
+            });
+            $("#void").change(function() {
+              if($(this).prop('checked') == true) {
+                $("#might").attr('disabled',true);
+              }
+              if($(this).prop('checked') == false && ($("#sup").prop('checked') == false)){
+                $("#might").attr('disabled',false);
+              }
+            });
+            $("#might").change(function() {
+              if($(this).prop('checked') == true) {
+                $("#void").attr('disabled',true);
+              }
+              if($(this).prop('checked') == false && ($("#inf").prop('checked') == false)){
+                $("#void").attr('disabled',false);
+              }
+            });
+            $('#prayer').on('change', function() {
+              if($('#zeal').prop('checked') == true) {
+                $("#inf").attr('disabled',true);
+              }
+
+              //  var value = $(this).val();
+              //  alert(value);
+            });
+          });
+          </script>
+          <label><input name = "mod" type="checkbox" id="nihil" onclick="onClickHandler()"value="1.05" /> Nihil</label>
+          <label><input name = "mod" type="checkbox" id="def" onclick="onClickHandler()"value="1.03" /> Defender</label>
+          <label><input name = "mod" type="checkbox" id="med"  onclick="onClickHandler()"value="1.01" /> Extreme Dominion Medallion</label><br>
+          <label><input name = "mod" type="checkbox" id="inf"  onclick="onClickHandler()" value="1.02" /> Inferior Accuracy Scrimshaw</label>
+          <label><input name = "mod" type="checkbox" id="sup"  onclick="onClickHandler()" value="1.04" /> Superior Accuracy Scrimshaw</label>
+          <label><input name = "mod" type="checkbox" id="void" onclick="onClickHandler()"value="1.03" /> Void (any set)</label><br>
+          <label><input name = "mod" type="checkbox" id="might" onclick="onClickHandler()"value="1.14" /> Mighty Slayer Helmet</label>
+          <label><input name = "mod" type="checkbox" id="zeal" value = "1"/> Amulet of Zealots</label>
+        </td>
+        <td id = "acc6"></td>
+      </tr>
+      <tr>
+        <td>Final Accuracy:</td>
+        <td id = "accfinal2"> 1 </td>
+        <td></td>
+      </tr>
+      <tr>
+
+    </tbody>
+
+  </table>
+
+  <?php
+  echo 'Hello World!';
+  ?>
+</div>
+
+</body>
+</html>

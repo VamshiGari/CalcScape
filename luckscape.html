@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <title>Runescape 3</title>
+  <meta charset="utf-8">
+  <script src = "../js/rs3navigation.js">
+  </script>
+  <script src = "../calcScape/js/log.js">
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+</head>
+
+<body id = "bgimg" style = "background-image: url('http://orig03.deviantart.net/97cd/f/2016/265/7/f/runescape_the_enduring_vs_the_warden_by_racoonkun-daihe1f.jpg');
+    background-repeat: repeat-x; background-size: cover;">
+  <audio id="audio" src="../calcScape/html/prelude.mp3" autoplay loop ></audio>
+
+      <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">CalcScape</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#" id = "rs3page" onclick = "redirectTo(this.id)">Home</a></li>
+          <li><a href="#" id = "xp" onclick='redirectTo(this.id)'>Xp Calculator</a></li>
+          <li><a href="#" id = "accuracy" onclick='redirectTo(this.id)'>Accuracy Calculator</a></li>
+          <li><a href="#" id = "luckscape" onclick='redirectTo(this.id)' >Luckscape</a></li>
+        </ul>
+      </div>
+    </nav>
+    <script>
+    $(function(){
+        var x = 0;
+        setInterval(function(){
+            x-=1;
+            $('body').css('background-position', x + 'px 0');
+        }, 40);
+    })
+
+  function play(id){
+    var obj = document.getElementById('bgimg');
+    obj.style.backgroundImage = 'url("https://i.ytimg.com/vi/NeBd7F4inBI/maxresdefault.jpg")';
+    var playme = document.getElementById('audio');
+    playme.src=id;
+    playme.load();
+        playme.play();
+                 }
+   </script>
+   <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<center>
+   <select class="form-control" id = "sty" style = "width: 164px;" value = "0" onchange = "play(this.value)">
+     <option value="-1">None</option>
+     <option value="../calcScape/html/aod.mp3">Nex : Angel of Death</option>
+     <option value="../calcScape/html/anima.mp3">Telos the Warden</option>
+     <option value="../calcScape/html/vorago.mp3">Vorago</option>
+     <option value="../calcScape/html/yaka2.mp3">Yakamaru</option>
+
+   </select>
+
+</center>
+ </body>
+ </html>
